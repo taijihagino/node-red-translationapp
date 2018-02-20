@@ -1,0 +1,21 @@
+[
+    {
+        "id": "8a699c9.a28046",
+        "type": "template",
+        "z": "ac4fcfdb.c3f5a",
+        "name": "Output Page",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<h1>Watson Translation App</h1>\n<H2>翻訳したい文章を英語で入力して下さい</H2>\n※英語から日本語への翻訳になります。\n<form action=\"/translate\" method=\"post\">\n    <textarea name=\"inputtext\" cols=\"50\" rows=\"10\">{{payload}}</textarea>\n    <br>\n    <input type=\"submit\" value=\"翻訳する\"/>\n</form>",
+        "output": "str",
+        "x": 670,
+        "y": 400,
+        "wires": [
+            [
+                "c742d84a.8c8b68"
+            ]
+        ]
+    }
+]
