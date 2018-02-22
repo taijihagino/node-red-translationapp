@@ -4,20 +4,26 @@
 
 ### パラメーター確認
 ノードの種類: Switch
+```
 Property: msg.payload.inputtext
 is null   -> 1
 otherwise -> 2
+```
 
 ### パラメーター加工
 ノードの種類: Function
+```
 msg.payload = msg.payload.inputtext;
 return msg;
+```
 
 ### Language Translator API呼び出し
 ノードの種類: Language Translator
+```
 Mode: Translate
 Domain: News
 Source to Target: English to Japanese
+```
 
 ### 初期表示画面のHTML
 ノードの種類: Template
