@@ -1,20 +1,161 @@
 [
     {
-        "id": "8a699c9.a28046",
+        "id": "4fddfcd.734fc04",
         "type": "template",
-        "z": "ac4fcfdb.c3f5a",
-        "name": "Output Page",
+        "z": "f02e42de.183d6",
+        "name": "HTML（翻訳完了時）",
         "field": "payload",
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "mustache",
         "template": "<h1>Watson Translation App</h1>\n<H2>翻訳したい文章を英語で入力して下さい</H2>\n※英語から日本語への翻訳になります。\n<form action=\"/translate\" method=\"post\">\n    <textarea name=\"inputtext\" cols=\"50\" rows=\"10\">{{payload}}</textarea>\n    <br>\n    <input type=\"submit\" value=\"翻訳する\"/>\n</form>",
         "output": "str",
-        "x": 670,
+        "x": 940,
         "y": 400,
         "wires": [
             [
-                "c742d84a.8c8b68"
+                "84f154dd.967d58"
+            ]
+        ]
+    },
+    {
+        "id": "918e4557.4df9a8",
+        "type": "http in",
+        "z": "f02e42de.183d6",
+        "name": "HTTPリクエスト（初期表示）",
+        "url": "/translate",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 60,
+        "wires": [
+            [
+                "d9ee5c3f.971c"
+            ]
+        ]
+    },
+    {
+        "id": "d9ee5c3f.971c",
+        "type": "switch",
+        "z": "f02e42de.183d6",
+        "name": "",
+        "property": "payload.inputtext",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "null"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 390,
+        "y": 140,
+        "wires": [
+            [
+                "1e064810.f7ec68"
+            ],
+            [
+                "d4beb77b.48ed28"
+            ]
+        ]
+    },
+    {
+        "id": "1e064810.f7ec68",
+        "type": "template",
+        "z": "f02e42de.183d6",
+        "name": "HTML（初期表示時）",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<h1>Watson Translation App</h1>\n<H2>翻訳したい文章を英語で入力して下さい</H2>\n※英語から日本語への翻訳になります。\n<form action=\"/translate\" method=\"post\">\n    <textarea name=\"inputtext\" cols=\"50\" rows=\"10\"></textarea>\n    <br>\n    <input type=\"submit\" value=\"翻訳する\"/>\n</form>",
+        "output": "str",
+        "x": 600,
+        "y": 60,
+        "wires": [
+            [
+                "84f154dd.967d58"
+            ]
+        ]
+    },
+    {
+        "id": "84f154dd.967d58",
+        "type": "http response",
+        "z": "f02e42de.183d6",
+        "name": "HTTPレスポンス",
+        "statusCode": "",
+        "headers": {},
+        "x": 1110,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "2a393112.59bc7e",
+        "type": "http in",
+        "z": "f02e42de.183d6",
+        "name": "HTTPリクエスト（翻訳実行時）",
+        "url": "/translate",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 220,
+        "wires": [
+            [
+                "d9ee5c3f.971c"
+            ]
+        ]
+    },
+    {
+        "id": "d4beb77b.48ed28",
+        "type": "function",
+        "z": "f02e42de.183d6",
+        "name": "パラメーター変換",
+        "func": "msg.payload = msg.payload.inputtext;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 510,
+        "y": 240,
+        "wires": [
+            [
+                "594273f0.11d45c"
+            ]
+        ]
+    },
+    {
+        "id": "594273f0.11d45c",
+        "type": "watson-translator",
+        "z": "f02e42de.183d6",
+        "name": "Language Translator API呼び出し",
+        "action": "translate",
+        "basemodel": "en-nl",
+        "domain": "general",
+        "srclang": "en",
+        "destlang": "ja",
+        "password": "",
+        "apikey": "",
+        "custom": "",
+        "domainhidden": "general",
+        "srclanghidden": "en",
+        "destlanghidden": "ja",
+        "basemodelhidden": "en-nl",
+        "customhidden": "",
+        "filetype": "forcedglossary",
+        "trainid": "",
+        "lgparams2": true,
+        "neural": false,
+        "default-endpoint": true,
+        "service-endpoint": "https://gateway.watsonplatform.net/language-translator/api",
+        "x": 720,
+        "y": 320,
+        "wires": [
+            [
+                "4fddfcd.734fc04"
             ]
         ]
     }
