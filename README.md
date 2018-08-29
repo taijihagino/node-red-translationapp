@@ -35,7 +35,7 @@ return msg;
 ノードの種類: Language Translator
 ```
 Mode: Translate
-Domain: News
+Domain: General
 Source to Target: English to Japanese
 ```
 
